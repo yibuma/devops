@@ -21,4 +21,4 @@ jobs:
         if: ${{ github.event.before == '0000000000000000000000000000000000000000' }}
         uses: yibuma/devops/.github/actions/conventional-commits-linter@main
         with:
-          rev-range: '${{github.repository.default_branch}}...HEAD'
+          rev-range: '${{github.event.repository.default_branch}}...HEAD'
