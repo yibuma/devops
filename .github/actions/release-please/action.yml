@@ -27,7 +27,7 @@ runs:
         command: release-pr
 
     - name: github-release
-      id: github-release
+      id: release
       if: ${{ inputs.command == 'github-release' }}
       uses: google-github-actions/release-please-action@v3
       with:
@@ -35,11 +35,11 @@ runs:
         command: github-release
 
     - name: git checkout
-      if: ${{ inputs.command == 'github-release' && steps.github-release.outputs.release_created }}
+      if: ${{ inputs.command == 'github-release' && steps.release.outputs.release_created }}
       uses: actions/checkout@v3
 
     - name: tag major and minor versions
-      if: ${{ inputs.command == 'github-release' && steps.github-release.outputs.release_created }}
+      if: ${{ inputs.command == 'github-release' && steps.release.outputs.release_created }}
       shell: bash
       run: |
         git config user.name github-actions[bot]
