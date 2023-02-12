@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.0](https://github.com/yibuma/devops/compare/v1.1.0...v1.2.0) (2023-02-12)
+
+
+### Features
+
+* add tags ([e613fda](https://github.com/yibuma/devops/commit/e613fda48660b1f85d21d423e0ef28d1b53572ce))
+
 ## [1.1.0](https://github.com/yibuma/devops/compare/v1.0.1...v1.1.0) (2023-02-12)
 
 
