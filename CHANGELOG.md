@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/yibuma/devops/compare/v1.0.0...v1.0.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* fix CHANGELOG push ([90e3a50](https://github.com/yibuma/devops/commit/90e3a5023eefb4e1eefac9cfd71efa9bb2229aa0))
+
 ## 1.0.0 (2023-02-12)
 
 
