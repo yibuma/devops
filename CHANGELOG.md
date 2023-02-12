@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.0](https://github.com/yibuma/devops/compare/v1.0.1...v1.1.0) (2023-02-12)
+
+
+### Features
+
+* ignore .gitignore, README.md ([38ca2b6](https://github.com/yibuma/devops/commit/38ca2b680f926ff8a9c6e9ce9f0f7a1c9244690d))
+
 ## [1.0.1](https://github.com/yibuma/devops/compare/v1.0.0...v1.0.1) (2023-02-12)
 
 
