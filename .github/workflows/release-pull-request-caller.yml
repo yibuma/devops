@@ -6,6 +6,8 @@ on:
       - main
     paths-ignore:
       - 'CHANGELOG.md'
+      - 'README.md'
+      - '.gitignore'
 
 jobs:
   release-pull-request:
