@@ -4,8 +4,9 @@ on: push
 
 jobs:
   release-pull-request:
-    uses: yibuma/devops/.github/workflows/release-pull-request.yml@main
-    with:
-      release-type: 'simple'
-    secrets:
-      token: ${{ secrets.GITHUB_TOKEN }}
+    runs-on: ubuntu-latest
+    steps:
+      uses: yibuma/devops/.github/actions/release-please@main
+      with:
+        release-type: 'simple'
+        command: 'release-pr'
