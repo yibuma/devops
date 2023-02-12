@@ -6,6 +6,7 @@ on:
       release-type:
         required: true
         type: string
+    secrets:
       token:
         required: true
         type: string
@@ -17,7 +18,7 @@ jobs:
       - uses: google-github-actions/release-please-action@v3
         with:
           release-type: ${{ inputs.release-type }}
-          token: ${{ inputs.token }}
+          token: ${{ secrets.token }}
           command: github-release
       - uses: actions/checkout@v3
       - name: tag major and minor versions
