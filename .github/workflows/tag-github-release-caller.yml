@@ -11,7 +11,6 @@ on:
 
 jobs:
   tag-github-release:
-    runs-on: ubuntu-latest
     uses: yibuma/devops/.github/workflows/tag-github-release.yml@main
     with:
       release-type: 'simple'
