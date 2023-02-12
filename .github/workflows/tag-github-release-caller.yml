@@ -1,0 +1,17 @@
+name: Tag and github release caller
+
+on:
+  pull_request_target:
+    paths:
+      - 'CHANGELOG.md'
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  tag-github-release:
+    runs-on: ubuntu-latest
+    uses: yibuma/devops/.github/workflows/tag-github-release.yml@main
+    with:
+      release-type: 'simple'

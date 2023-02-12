@@ -1,0 +1,23 @@
+name: Release pull request
+
+on:
+  workflow_call:
+    inputs:
+      release-type:
+        required: true
+        description: 'what type of release is this, one of (ruby, python, node, terraform-module)'
+        type: string
+      package-name:
+        required: false
+        description: 'name of the distributions releases are being created for, e.g., "name" in package.json, or "setup.py"'
+        type: string
+
+jobs:
+  release-pull-request:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        with:
+          release-type: ${{ inputs.release-type }}
+          command: release-pr
+          package-name: ${{ inputs.package-name }}
