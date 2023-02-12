@@ -10,7 +10,8 @@ jobs:
         uses: actions/checkout@v3
         with:
           fetch-depth: 0
-
+      - name: test
+        run: echo ${{toJSON(github.event)}}
       - name: Check push commits
         uses: yibuma/devops/.github/actions/conventional-commits-linter@main
         with:
