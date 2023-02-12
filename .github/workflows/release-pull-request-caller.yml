@@ -6,7 +6,7 @@ jobs:
   release-pull-request:
     runs-on: ubuntu-latest
     steps:
-      uses: yibuma/devops/.github/actions/release-please@main
-      with:
-        release-type: 'simple'
-        command: 'release-pr'
+      - uses: yibuma/devops/.github/actions/release-please@main
+        with:
+          release-type: 'simple'
+          command: 'release-pr'

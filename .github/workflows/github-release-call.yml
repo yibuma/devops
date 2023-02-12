@@ -1,0 +1,19 @@
+name: Auto github release
+
+on:
+  pull_request_target:
+    paths:
+      - 'CHANGELOG.md'
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  github-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: yibuma/devops/.github/actions/release-please@main
+        with:
+          release-type: 'simple'
+          command: 'github-release'
