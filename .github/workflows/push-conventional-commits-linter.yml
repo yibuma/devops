@@ -11,8 +11,6 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: test
-        run: echo ${{toJSON(github)}}
       - name: Check push commits
         if: ${{ github.event.before != '0000000000000000000000000000000000000000' }}
         uses: yibuma/devops/.github/actions/conventional-commits-linter@main
