@@ -1,4 +1,4 @@
-name: Auto release tag
+name: Auto release tag caller
 
 on:
   pull_request_target:
@@ -14,3 +14,4 @@ jobs:
     uses: yibuma/devops/.github/workflows/release-tag.yml@main
     with:
       release-type: 'simple'
+      token: ${{ secrets.GITHUB_TOKEN }}

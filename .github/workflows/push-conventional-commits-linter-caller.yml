@@ -1,4 +1,4 @@
-name: Push conventional commits linter
+name: Push conventional commits linter caller
 
 on: push
 

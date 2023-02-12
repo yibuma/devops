@@ -1,4 +1,4 @@
-name: Pull request conventional commits linter
+name: Pull request conventional commits linter caller
 
 on: pull_request
 
