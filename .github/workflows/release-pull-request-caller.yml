@@ -1,6 +1,11 @@
 name: Release pull request caller
 
-on: push
+on: 
+  push:
+    branches:
+      - main
+    paths-ignore:
+      - 'CHANGELOG.md'
 
 jobs:
   release-pull-request:
