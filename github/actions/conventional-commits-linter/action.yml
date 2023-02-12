@@ -1,0 +1,36 @@
+name: "Conventional Commits linter"
+description: "Installs and use commitizen to check if the commit message conforms to `Conventional Commits`(https://www.conventionalcommits.org/). Must setup-python before."
+author: "Yibu Ma"
+branding:
+  icon: "file-text"
+  color: "wheat"
+inputs:
+  rev-range:
+    description: "a range of git rev to check. e.g, main..HEAD"
+    required: true
+  allow-abort:
+    description: "allow empty commit messages, which typically abort a commit"
+    required: false
+    default: "false"
+runs:
+  using: "composite"
+  steps:
+    - name: Set up python
+      id: setup-python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install commitizen
+      run: pip install -U commitizen
+      shell: bash
+
+    - name: Run commitizen
+      if: ${{ inputs.allow-abort == 'false' }}
+      run: cz check --rev-range ${{ inputs.rev-range}}
+      shell: bash
+
+    - name: Run commitizen allow empty commit
+      if: ${{ inputs.allow-abort != 'false' }}
+      run: cz check --rev-range ${{ inputs.rev-range}} --allow-abort
+      shell: bash

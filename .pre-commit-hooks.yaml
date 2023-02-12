@@ -1,0 +1,68 @@
+- id: poetry-check
+  name: poetry-check
+  description: run poetry check to validate config
+  entry: poetry check
+  language: system
+  pass_filenames: false
+  files: ^pyproject.toml$
+  stages: [commit]
+
+- id: poetry-lock
+  name: poetry-lock
+  description: run poetry lock to update lock file
+  entry: poetry lock
+  language: system
+  pass_filenames: false
+  stages: [commit]
+
+- id: poetry-export
+  name: poetry-export
+  description: run poetry export to sync lock file with requirements.txt
+  entry: poetry export
+  language: system
+  pass_filenames: false
+  files: ^poetry.lock$
+  args: ["-f", "requirements.txt", "-o", "requirements.txt"]
+  stages: [commit]
+
+- id: poetry-run-unittest-and-coverage
+  name: run unittest and coverage
+  description: run unitest and coverage with poetry, coverage must have been installed previously.
+  entry: poetry run coverage run -m unittest
+  args: [-v]
+  stages: [commit]
+  language: system
+  pass_filenames: false
+
+- id: poetry-report-coverage
+  name: report on the results of coverage
+  description: report the results of coverage with poetry. must be after `poetry-run-unittest-and-coverage`
+  entry: poetry run coverage report
+  stages: [commit]
+  language: system
+  pass_filenames: false
+
+- id: poetry-coverage-xml
+  name: create an XML report of coverage results
+  description: create an XML report of coverage results. the `poetry run diff-cover` Dependent on this step. must be after `poetry-run-unittest-and-coverage`
+  entry: poetry run coverage xml
+  stages: [commit]
+  language: system
+  pass_filenames: false
+
+- id: poetry-coverage-html
+  name: create an HTML report of coverage results
+  description: create an nice presentation HTML report of coverage results. must be after `poetry-run-unittest-and-coverage`
+  entry: poetry run coverage html
+  stages: [commit]
+  language: system
+  pass_filenames: false
+
+- id: poetry-run-diff-cover
+  name: check the patch rate of coverage
+  description: his will compare the current git branch to origin/main and print the diff coverage report to the console. must be after `poetry-coverage-xml`.
+  entry: poetry run diff-cover
+  args: ['coverage.xml', '--fail-under=80', '-q']
+  stages: [commit]
+  language: system
+  pass_filenames: false
