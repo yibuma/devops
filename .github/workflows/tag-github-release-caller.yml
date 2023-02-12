@@ -11,6 +11,7 @@ on:
 
 jobs:
   tag-github-release:
+    if: github.event.pull_request.merged == true
     uses: yibuma/devops/.github/workflows/tag-github-release.yml@main
     with:
       release-type: 'simple'
