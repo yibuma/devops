@@ -1,7 +1,17 @@
 name: Push conventional commits linter
 
-on: push
+on: workflow_call
 
 jobs:
   push-conventional-commits-linter:
-    uses: ./github/workflows/push-conventional-commits-linter.yml@main
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Check push commits
+        uses: yibuma/devops/github/actions/conventional-commits-linter@main
+        with:
+          rev-range: '${{github.event.before}}...HEAD'
