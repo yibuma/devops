@@ -4,4 +4,4 @@ on: push
 
 jobs:
   push-conventional-commits-linter:
-    uses: ./.github/workflows/push-conventional-commits-linter.yml@main
+    uses: ./.github/workflows/push-conventional-commits-linter.yml
