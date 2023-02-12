@@ -1,0 +1,9 @@
+name: Release pull request
+
+on: push
+
+jobs:
+  release-pull-request:
+    uses: yibuma/devops/.github/workflows/release-pull-request.yml@main
+    with:
+      release-type: 'simple'

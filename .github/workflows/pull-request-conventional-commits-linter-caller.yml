@@ -1,0 +1,7 @@
+name: Pull request conventional commits linter
+
+on: pull_request
+
+jobs:
+  pull-request-conventional-commits-linter:
+    uses: yibuma/devops/.github/workflows/pull-request-conventional-commits-linter.yml@main

@@ -1,0 +1,16 @@
+name: Auto release tag
+
+on:
+  pull_request_target:
+    paths:
+      - 'CHANGELOG.md'
+    types:
+      - closed
+    branches:
+      - main
+
+jobs:
+  release-pull-request:
+    uses: yibuma/devops/.github/workflows/release-tag.yml@main
+    with:
+      release-type: 'simple'
