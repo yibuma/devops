@@ -4,4 +4,4 @@ on: push
 
 jobs:
   push-conventional-commits-linter:
-    uses: yibuma/devops/.github/workflows/push-conventional-commits-linter.yml
+    uses: yibuma/devops/.github/workflows/push-conventional-commits-linter.yml@main

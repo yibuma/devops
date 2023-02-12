@@ -12,6 +12,6 @@ jobs:
           fetch-depth: 0
 
       - name: Check push commits
-        uses: yibuma/devops/.github/actions/conventional-commits-linter
+        uses: yibuma/devops/.github/actions/conventional-commits-linter@main
         with:
           rev-range: '${{github.event.before}}...HEAD'
