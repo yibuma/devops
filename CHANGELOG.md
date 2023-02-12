@@ -1,5 +1,18 @@
 # Changelog
 
+## [1.3.0](https://github.com/yibuma/devops/compare/v1.2.2...v1.3.0) (2023-02-12)
+
+
+### Features
+
+* change action to workflows ([8f8d9e8](https://github.com/yibuma/devops/commit/8f8d9e85f44eabbba08c42fefc005b6e401122c8))
+* update action user ([d9cb86b](https://github.com/yibuma/devops/commit/d9cb86be8114c3bfbcbe0265b066956c97cf003d))
+
+
+### Bug Fixes
+
+* bugs ([8fc6718](https://github.com/yibuma/devops/commit/8fc6718359cc418e1c43d1d445077d72a25d204c))
+
 ## [1.2.2](https://github.com/yibuma/devops/compare/v1.2.1...v1.2.2) (2023-02-12)
 
 
