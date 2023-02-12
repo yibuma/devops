@@ -7,4 +7,5 @@ jobs:
     uses: yibuma/devops/.github/workflows/release-pull-request.yml@main
     with:
       release-type: 'simple'
+    secrets:
       token: ${{ secrets.GITHUB_TOKEN }}

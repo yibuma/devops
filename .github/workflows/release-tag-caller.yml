@@ -14,4 +14,5 @@ jobs:
     uses: yibuma/devops/.github/workflows/release-tag.yml@main
     with:
       release-type: 'simple'
+    secrets:
       token: ${{ secrets.GITHUB_TOKEN }}
