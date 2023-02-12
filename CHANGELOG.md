@@ -1,5 +1,26 @@
 # Changelog
 
+## [1.4.0](https://github.com/yibuma/devops/compare/v1.3.0...v1.4.0) (2023-02-12)
+
+
+### Features
+
+* add black action ([31b342a](https://github.com/yibuma/devops/commit/31b342a09fc15d2d041b5d7d10aec7296767ccce))
+* add debug ([df87bf1](https://github.com/yibuma/devops/commit/df87bf1a2e1fae4a41b00b7211059d956c2c8730))
+* add echo ([acb06c2](https://github.com/yibuma/devops/commit/acb06c21066cecd528a60cd2dcb1ba9f8c8c010d))
+* add poetry run unittest ([1d1f74a](https://github.com/yibuma/devops/commit/1d1f74aa825ef2774e0bd29d57c851da7ae0f4c0))
+
+
+### Bug Fixes
+
+* add debu ([2297f54](https://github.com/yibuma/devops/commit/2297f543f35dd113ffc51489eb83065b532ab893))
+* add debug ([2025108](https://github.com/yibuma/devops/commit/20251089d16391ea10ad0533a810a7104fbe9fe6))
+* ads ([9487f7c](https://github.com/yibuma/devops/commit/9487f7c9949e0a3699e81e34d531f91ccbc5d6e3))
+* fix empty default brach name ([f5bf02d](https://github.com/yibuma/devops/commit/f5bf02dd2ad4480065f34f7b70091f01f1a66da2))
+* fix lint when create new branch ([ece6c81](https://github.com/yibuma/devops/commit/ece6c819dab3a79856130d1e12e6bb79ddc6f2ba))
+* remove git log ([34dd629](https://github.com/yibuma/devops/commit/34dd629317a1f1d469c9c44013d80f6d975e970b))
+* remove teett ([9fb7cb8](https://github.com/yibuma/devops/commit/9fb7cb83b98d61f1c4f3e95de28b25801e1535ac))
+
 ## [1.3.0](https://github.com/yibuma/devops/compare/v1.2.2...v1.3.0) (2023-02-12)
 
 
