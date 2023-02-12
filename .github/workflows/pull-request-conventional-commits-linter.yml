@@ -12,6 +12,6 @@ jobs:
           fetch-depth: 0
 
       - name: Check pull request commits
-        uses: ./.github/actions/conventional-commits-linter
+        uses: yibuma/devops/.github/actions/conventional-commits-linter
         with:
           rev-range: '${{github.event.pull_request.base.sha}}...HEAD'

@@ -25,6 +25,10 @@ runs:
       run: pip install -U commitizen
       shell: bash
 
+    - name: Show be check commit message
+      run: git log ${{ inputs.rev-range}}
+      shell: bash
+
     - name: Run commitizen
       if: ${{ inputs.allow-abort == 'false' }}
       run: cz check --rev-range ${{ inputs.rev-range}}
