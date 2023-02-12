@@ -27,6 +27,7 @@ runs:
         command: release-pr
 
     - name: github-release
+      id: github-release
       if: ${{ inputs.command == 'github-release' }}
       uses: google-github-actions/release-please-action@v3
       with:
