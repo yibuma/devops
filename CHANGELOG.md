@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.1](https://github.com/yibuma/devops/compare/v1.2.0...v1.2.1) (2023-02-12)
+
+
+### Bug Fixes
+
+* no id bug ([351ce2f](https://github.com/yibuma/devops/commit/351ce2f914bc3f7fab99eb64572d5109258fd55c))
+
 ## [1.2.0](https://github.com/yibuma/devops/compare/v1.1.0...v1.2.0) (2023-02-12)
 
 
