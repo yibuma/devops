@@ -1,7 +1,0 @@
-name: Push conventional commits linter caller
-
-on: push
-
-jobs:
-  push-conventional-commits-linter:
-    uses: yibuma/devops/.github/workflows/push-conventional-commits-linter.yml@main
