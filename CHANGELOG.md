@@ -1,5 +1,19 @@
 # Changelog
 
+## [1.5.0](https://github.com/yibuma/devops/compare/v1.4.0...v1.5.0) (2023-02-13)
+
+
+### Features
+
+* add docker workflows ([77c4c66](https://github.com/yibuma/devops/commit/77c4c668aa8be9092f5c2c99a7b5a299cb90396b))
+* add poetry publish ([a927d37](https://github.com/yibuma/devops/commit/a927d37d5bdad8d6b85dd97e672226dc89b8e67e))
+* update tag workflow add token ([2cac3aa](https://github.com/yibuma/devops/commit/2cac3aa03b49e1de70622b9f0c997832033322b6))
+
+
+### Bug Fixes
+
+* fix docker error ([987fa82](https://github.com/yibuma/devops/commit/987fa82c2ceb3a98c85b439d52a941bbd09a5f64))
+
 ## [1.4.0](https://github.com/yibuma/devops/compare/v1.3.0...v1.4.0) (2023-02-12)
 
 
