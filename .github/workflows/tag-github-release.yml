@@ -12,6 +12,10 @@ on:
         description: 'name of the distributions releases are being created for, e.g., "name" in package.json, or "setup.py"'
         type: string
     secrets:
+      with-token:
+        description: 'GitHub token for creating and grooming release PRs, defaults to using secrets.GITHUB_TOKEN'
+        required: false
+        default: 'false'
       token:
         description: 'GitHub token for creating and grooming release PRs, defaults to using secrets.GITHUB_TOKEN'
         required: false
@@ -21,7 +25,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - id: release-with-token
-        if: ${{ secrets.token }}
+        if: ${{ secrets.with-token != 'false' }}
         uses: google-github-actions/release-please-action@v3
         with:
           token: ${{ secrets.token }}
@@ -30,7 +34,7 @@ jobs:
           package-name: ${{ inputs.package-name }}
 
       - id: release-without-token
-        if: ${{ !secrets.token }}
+        if: ${{ secrets.with-token == 'false' }}
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: ${{ inputs.release-type }}
