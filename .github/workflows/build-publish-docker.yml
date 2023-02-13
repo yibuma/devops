@@ -32,6 +32,9 @@ jobs:
           username: ${{ secrets.username }}
           password: ${{ secrets.password }}
 
+      - name: test
+        run: |
+          echo ${{ toJSON(github.event) }}
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
