@@ -1,45 +1,24 @@
 name: Tag and github release
 
 on:
-  workflow_call:
-    inputs:
-      release-type:
-        required: true
-        description: 'what type of release is this, one of (ruby, python, node, terraform-module)'
-        type: string
-      package-name:
-        required: false
-        description: 'name of the distributions releases are being created for, e.g., "name" in package.json, or "setup.py"'
-        type: string
-    secrets:
-      with-token:
-        description: 'GitHub token for creating and grooming release PRs, defaults to using secrets.GITHUB_TOKEN'
-        required: false
-        default: 'false'
-      token:
-        description: 'GitHub token for creating and grooming release PRs, defaults to using secrets.GITHUB_TOKEN'
-        required: false
+  pull_request_target:
+    paths:
+      - 'CHANGELOG.md'
+    types:
+      - closed
+    branches:
+      - main
 
 jobs:
   release-tag:
+    if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - id: release-with-token
-        if: ${{ secrets.with-token != 'false' }}
+      - id: release
         uses: google-github-actions/release-please-action@v3
         with:
-          token: ${{ secrets.token }}
-          release-type: ${{ inputs.release-type }}
+          release-type: 'simple'
           command: github-release
-          package-name: ${{ inputs.package-name }}
-
-      - id: release-without-token
-        if: ${{ secrets.with-token == 'false' }}
-        uses: google-github-actions/release-please-action@v3
-        with:
-          release-type: ${{ inputs.release-type }}
-          command: github-release
-          package-name: ${{ inputs.package-name }}
 
       - uses: actions/checkout@v3
       - name: tag major and minor versions
