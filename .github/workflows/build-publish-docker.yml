@@ -4,14 +4,11 @@ on:
   workflow_call:
     secrets:
       registry:
-        required: false
-        default: 'ghcr.io'
+        required: true
       username:
-        required: false
-        default: ${{ github.actor }}
+        required: true
       password:
-        required: false
-        default: ${{ secrets.GITHUB_TOKEN }}
+        required: true
 
 env:
   REGISTRY: ${{ secrets.registry }}
