@@ -11,17 +11,32 @@ on:
         required: false
         description: 'name of the distributions releases are being created for, e.g., "name" in package.json, or "setup.py"'
         type: string
+    secrets:
+      token:
+        description: 'GitHub token for creating and grooming release PRs, defaults to using secrets.GITHUB_TOKEN'
+        required: false
 
 jobs:
   release-tag:
     runs-on: ubuntu-latest
     steps:
-      - id: release
+      - id: release-with-token
+        if: ${{ secrets.token }}
+        uses: google-github-actions/release-please-action@v3
+        with:
+          token: ${{ secrets.token }}
+          release-type: ${{ inputs.release-type }}
+          command: github-release
+          package-name: ${{ inputs.package-name }}
+
+      - id: release-without-token
+        if: ${{ !secrets.token }}
         uses: google-github-actions/release-please-action@v3
         with:
           release-type: ${{ inputs.release-type }}
           command: github-release
           package-name: ${{ inputs.package-name }}
+
       - uses: actions/checkout@v3
       - name: tag major and minor versions
         if: ${{ steps.release.outputs.release_created }}
