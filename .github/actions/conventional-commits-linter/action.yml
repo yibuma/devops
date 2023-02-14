@@ -30,11 +30,7 @@ runs:
       shell: bash
 
     - name: test
-      run: git log -10
-      shell: bash
-
-    - name: Show be check commit message
-      run: git log ${{ inputs.rev-range}}
+      run: git log -10 --decorate
       shell: bash
 
     - name: Run commitizen with message
@@ -42,12 +38,17 @@ runs:
       run: cz check -m ${{ inputs.message }}
       shell: bash
 
+    - name: Show be check commit message
+      if: ${{ !inputs.message }}
+      run: git log ${{ inputs.rev-range}} --decorate
+      shell: bash
+
     - name: Run commitizen
-      if: ${{ inputs.message && inputs.allow-abort == 'false' }}
+      if: ${{ !inputs.message && inputs.allow-abort == 'false' }}
       run: cz check --rev-range ${{ inputs.rev-range }}
       shell: bash
 
     - name: Run commitizen allow empty commit
-      if: ${{ inputs.message && inputs.allow-abort != 'false' }}
+      if: ${{ !inputs.message && inputs.allow-abort != 'false' }}
       run: cz check --rev-range ${{ inputs.rev-range }} --allow-abort
       shell: bash
