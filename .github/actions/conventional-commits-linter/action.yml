@@ -5,9 +5,13 @@ branding:
   icon: "file-text"
   color: "wheat"
 inputs:
+  message:
+    description: "commit message that needs to be checked"
+    required: false
+    default: ""
   rev-range:
     description: "a range of git rev to check. e.g, main..HEAD"
-    required: true
+    required: false
   allow-abort:
     description: "allow empty commit messages, which typically abort a commit"
     required: false
@@ -29,12 +33,17 @@ runs:
       run: git log ${{ inputs.rev-range}}
       shell: bash
 
+    - name: Run commitizen with message
+      if: ${{ inputs.message != "" }}
+      run: cz check -m ${{ inputs.message }}
+      shell: bash
+
     - name: Run commitizen
       if: ${{ inputs.allow-abort == 'false' }}
-      run: cz check --rev-range ${{ inputs.rev-range}}
+      run: cz check --rev-range ${{ inputs.rev-range }}
       shell: bash
 
     - name: Run commitizen allow empty commit
       if: ${{ inputs.allow-abort != 'false' }}
-      run: cz check --rev-range ${{ inputs.rev-range}} --allow-abort
+      run: cz check --rev-range ${{ inputs.rev-range }} --allow-abort
       shell: bash
