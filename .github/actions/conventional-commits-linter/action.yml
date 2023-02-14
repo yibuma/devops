@@ -29,13 +29,9 @@ runs:
       run: pip install -U commitizen
       shell: bash
 
-    - name: test
-      run: git log -10 --decorate
-      shell: bash
-
     - name: Run commitizen with message
       if: ${{ inputs.message }}
-      run: cz check -m ${{ inputs.message }}
+      run: cz check -m '${{ inputs.message }}'
       shell: bash
 
     - name: Show be check commit message
