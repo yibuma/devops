@@ -29,6 +29,10 @@ runs:
       run: pip install -U commitizen
       shell: bash
 
+    - name: test
+      run: git log -10
+      shell: bash
+
     - name: Show be check commit message
       run: git log ${{ inputs.rev-range}}
       shell: bash
