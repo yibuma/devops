@@ -2,6 +2,7 @@
   name: poetry-check
   description: run poetry check to validate config
   entry: poetry check
+  args: ['--no-interaction']
   language: system
   pass_filenames: false
   files: ^pyproject.toml$
@@ -9,8 +10,8 @@
 
 - id: poetry-lock
   name: poetry-lock
-  description: run poetry lock to update lock file
-  entry: poetry lock
+  description: run poetry lock to update lock file, Don't need to run the project when it's a lib, just create the entrypoint py
+  entry: test -f *.py && poetry lock  # when python project is an app not a lib, the entrypoint py must in root directory.
   args: ['--no-update', '--no-interaction']
   language: system
   pass_filenames: false
