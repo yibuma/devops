@@ -11,18 +11,9 @@
   name: poetry-lock
   description: run poetry lock to update lock file
   entry: poetry lock
+  args: ['--no-update']
   language: system
   pass_filenames: false
-  stages: [commit]
-
-- id: poetry-export
-  name: poetry-export
-  description: run poetry export to sync lock file with requirements.txt
-  entry: poetry export
-  language: system
-  pass_filenames: false
-  files: ^poetry.lock$
-  args: ["-f", "requirements.txt", "-o", "requirements.txt"]
   stages: [commit]
 
 - id: poetry-run-unittest-and-coverage
