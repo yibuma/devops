@@ -10,8 +10,8 @@
 
 - id: poetry-lock
   name: poetry-lock
-  description: run poetry lock, You need to first run `poetry lock` manually to generate the `poetry.lock` file.
-  entry: bash -c 'test -f poetry.lock && poetry lock $0 $* || echo "Current is a lab Skiped..."'
+  description: run poetry lock to update lock file
+  entry: poetry lock
   args: ['--no-update', '--no-interaction']
   language: system
   pass_filenames: false
