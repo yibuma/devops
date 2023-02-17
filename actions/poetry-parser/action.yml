@@ -31,8 +31,11 @@ runs:
       shell: python
       run: |
         import json
+        import os
         import sys
         import tomllib
+
+        output_file = open(os.getenv('GITHUB_OUTPUT'), "a")
 
         def parse_pyproject_toml_str(key_name: str, key_path: str):
             with open('pyproject.toml', 'rb') as f:
@@ -43,7 +46,7 @@ runs:
                         sys.exit(1)
                     project = project[key]
                 if isinstance(project, str):
-                    print("::set-output {key_name}={value}".format(key_name=key_name, value=project))
+                    output_file.write("{key_name}={value}".format(key_name=key_name, value=project))
                 else:
                     print("::error file=pyproject.toml::Key {key} is not a string in pyproject.toml".format(key=key_path))
                     sys.exit(1)
@@ -67,7 +70,7 @@ runs:
                 if isinstance(python_version, str):
                     python_version = [python_version]
                 versions = [''.join(filter(lambda x: x == '.' or x.isalnum(), version)) for version in python_version ]
-                print("::set-output python_versions={versions}".format(versions=json.dumps(versions)))
+                output_file.write("python_versions={versions}".format(versions=json.dumps(versions)))
 
         def parse_os_version():
             with open('pyproject.toml', 'rb') as f:
@@ -84,7 +87,7 @@ runs:
                 os = project['tool']['ci']['os']
                 if isinstance(os, str):
                     os = [os]
-                print("::set-output os={os}".format(os=json.dumps(os)))
+                output_file.write("os={os}".format(os=json.dumps(os)))
 
         parse_pyproject_toml_str('name', 'tool.poetry.name')
         parse_pyproject_toml_str('version', 'tool.poetry.version')
