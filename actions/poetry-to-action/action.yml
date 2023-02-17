@@ -1,0 +1,92 @@
+name: "Parser poetry toml to action"
+description: Parser poetry toml to action, outputs contains name=example, version=0.12.1, python_versions=["3.11", "3.10"], os=["ubuntu-latest", "macos-latest"]
+author: "Yibu Ma"
+branding:
+  icon: "file-text"
+  color: "wheat"
+outputs:
+  name:
+    description: "project name"
+    value: ${{ steps.parser.outputs.name }}
+  version:
+    description: "project version"
+    value: ${{ steps.parser.outputs.version }}
+  python_versions:
+    description: "project dependencies python versions"
+    value: ${{ steps.parser.outputs.python_versions }}
+  os:
+    description: "project support os"
+    value: ${{ steps.parser.outputs.os }}
+runs:
+  using: "composite"
+  steps:
+    - name: Set up python
+      id: setup-python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Parse poetry toml
+      id: parser
+      shell: python
+      run: |
+        import json
+        import sys
+        import tomllib
+
+        def parse_pyproject_toml_str(key_name: str, key_path: str):
+            with open('pyproject.toml', 'rb') as f:
+                project = tomllib.load(f)
+                for key in key_path.split('.'):
+                    if key not in project:
+                        print("::error file=pyproject.toml::Key {key} not found in pyproject.toml".format(key=key_path))
+                        sys.exit(1)
+                    project = project[key]
+                if isinstance(project, str):
+                    print("::set-output {key_name}={value}".format(key_name=key_name, value=project))
+                else:
+                    print("::error file=pyproject.toml::Key {key} is not a string in pyproject.toml".format(key=key_path))
+                    sys.exit(1)
+
+        def parse_poetry_python_version():
+            with open('pyproject.toml', 'rb') as f:
+                project = tomllib.load(f)
+                if 'tool' not in project:
+                    print("::error file=pyproject.toml::Key `tool.poetry.dependencies.python` not found in pyproject.toml")
+                    sys.exit(1)
+                if 'poetry' not in project['tool']:
+                    print("::error file=pyproject.toml::Key `tool.poetry.dependencies.python` not found in pyproject.toml")
+                    sys.exit(1)
+                if 'dependencies' not in project['tool']['poetry']:
+                    print("::error file=pyproject.toml::Key `tool.poetry.dependencies.python` not found in pyproject.toml")
+                    sys.exit(1)
+                if 'python' not in project['tool']['poetry']['dependencies']:
+                    print("::error file=pyproject.toml::Key `tool.poetry.dependencies.python` not found in pyproject.toml")
+                    sys.exit(1)
+                python_version = project['tool']['poetry']['dependencies']['python']
+                if isinstance(python_version, str):
+                    python_version = [python_version]
+                versions = [''.join(filter(lambda x: x == '.' or x.isalnum(), version)) for version in python_version ]
+                print("::set-output python_versions={versions}".format(versions=json.dumps(versions)))
+
+        def parse_os_version():
+            with open('pyproject.toml', 'rb') as f:
+                project = tomllib.load(f)
+                if 'tool' not in project:
+                    print("::error file=pyproject.toml::Key `tool.ci.os` not found in pyproject.toml")
+                    sys.exit(1)
+                if 'ci' not in project['tool']:
+                    print("::error file=pyproject.toml::Key `tool.ci.os` not found in pyproject.toml")
+                    sys.exit(1)
+                if 'os' not in project['tool']['ci']:
+                    print("::error file=pyproject.toml::Key `tool.ci.os` not found in pyproject.toml")
+                    sys.exit(1)
+                os = project['tool']['ci']['os']
+                if isinstance(os, str):
+                    os = [os]
+                print("::set-output os={os}".format(os=json.dumps(os)))
+
+        parse_pyproject_toml_str('name', 'tool.poetry.name')
+        parse_pyproject_toml_str('version', 'tool.poetry.version')
+        parse_poetry_python_version()
+        parse_os_version()
