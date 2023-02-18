@@ -75,16 +75,10 @@ runs:
         def parse_os_version():
             with open('pyproject.toml', 'rb') as f:
                 project = tomllib.load(f)
-                if 'tool' not in project:
-                    print("::error file=pyproject.toml::Key `tool.ci.os` not found in pyproject.toml")
-                    sys.exit(1)
-                if 'ci' not in project['tool']:
-                    print("::error file=pyproject.toml::Key `tool.ci.os` not found in pyproject.toml")
-                    sys.exit(1)
-                if 'os' not in project['tool']['ci']:
-                    print("::error file=pyproject.toml::Key `tool.ci.os` not found in pyproject.toml")
-                    sys.exit(1)
-                os = project['tool']['ci']['os']
+                try:
+                  os = project['tool']['ci']['os']
+                except KeyError:
+                  os = ["ubuntu-latest"]
                 if isinstance(os, str):
                     os = [os]
                 output_file.write("os={os}\n".format(os=json.dumps(os)))
