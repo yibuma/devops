@@ -24,9 +24,9 @@ inputs:
     required: false
     default: "https://github.githubassets.com/images/modules/open_graph/github-mark.png"
   url:
-    description: "Message click url"
+    description: "Message click URL"
     required: false
-    default: ${{github.repositoryUrl}}
+    default: "${{github.server_url}}/${{github.repository}}"
 
 runs:
   using: "composite"
