@@ -51,7 +51,7 @@ runs:
               i) icon="$OPTARG" ;;
               d) device_key="$OPTARG" ;;
               u) url="$OPTARG" ;;
-              c) copy="$OPTARG"
+              c) copy="$OPTARG" ;;
               *) return 0 ;;
             esac
           done
