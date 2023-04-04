@@ -7,8 +7,7 @@ branding:
 inputs:
   device-key:
     description: "Device key, supports multiple, separated by ','."
-    required: false
-    default: ${{secrets.BARK_DEVICE_KEY}}
+    required: true
 
   title:
     description: "Message title"
