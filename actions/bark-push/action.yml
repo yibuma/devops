@@ -27,6 +27,10 @@ inputs:
     description: "Message click URL"
     required: false
     default: "${{github.server_url}}/${{github.repository}}"
+  copy:
+    description: "Message copy context"
+    required: false
+    default: "${{github.server_url}}/${{github.repository}}"
 
 runs:
   using: "composite"
@@ -37,9 +41,9 @@ runs:
         function bark_push() {
           push_url="https://api.day.app/push"
           
-          body=""; title=""; group=""; icon=""; device_key=""; url=""
+          body=""; title=""; group=""; icon=""; device_key=""; url=""; copy=""
 
-          while getopts 'b:t:g:i:d:u:' opt; do
+          while getopts 'b:t:g:i:d:u:c:' opt; do
             case "${opt}" in
               b) body="$OPTARG" ;;
               t) title="$OPTARG" ;;
@@ -47,6 +51,7 @@ runs:
               i) icon="$OPTARG" ;;
               d) device_key="$OPTARG" ;;
               u) url="$OPTARG" ;;
+              c) copy="$OPTARG"
               *) return 0 ;;
             esac
           done
@@ -58,7 +63,8 @@ runs:
                           --arg icon "$icon" \
                           --arg device_key "$device_key" \
                           --arg url "$url" \
-                          '{body: $body, title: $title, group: $group, icon: $icon, device_key: $device_key, url: $url}'
+                          --arg copy "$copy" \
+                          '{body: $body, title: $title, group: $group, icon: $icon, device_key: $device_key, url: $url, copy: $copy}'
                      )
 
           device_keys=$(echo "$device_key" | tr -d '[:space:]' | sed 's/,$//gi')
@@ -72,4 +78,4 @@ runs:
                  "${push_url}"
           done
         }
-        bark_push -b '${{inputs.body}}' -t '${{inputs.title}}' -d '${{inputs.device-key}}' -g '${{inputs.group}}' -i '${{inputs.icon}}' -u '${{inputs.url}}'
+        bark_push -b '${{inputs.body}}' -t '${{inputs.title}}' -d '${{inputs.device-key}}' -g '${{inputs.group}}' -i '${{inputs.icon}}' -u '${{inputs.url}}' -c '${{inputs.copy}}'
