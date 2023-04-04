@@ -7,7 +7,9 @@ branding:
 inputs:
   device-key:
     description: "Device key, supports multiple, separated by ','."
-    required: true
+    required: false
+    default: ${{secrets.BARK_DEVICE_KEY}}
+
   title:
     description: "Message title"
     required: true
@@ -71,4 +73,4 @@ runs:
                  "${push_url}"
           done
         }
-        bark_push -b '${{inputs.body}}' -t '${{inputs.title}}' -d '${{secrets.BARK_DEVICE_KEY}}' -g '${{inputs.group}}' -i '${{inputs.icon}}' -u '${{inputs.url}}'
+        bark_push -b '${{inputs.body}}' -t '${{inputs.title}}' -d '${{inputs.device-key}}' -g '${{inputs.group}}' -i '${{inputs.icon}}' -u '${{inputs.url}}'
