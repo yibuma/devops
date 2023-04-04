@@ -1,0 +1,74 @@
+name: "Bark Push"
+description: "Push massage to Bark"
+author: "Yibu Ma"
+branding:
+  icon: "message-square"
+  color: "Coral"
+inputs:
+  device-key:
+    description: "Device key, supports multiple, separated by ','."
+    required: true
+  title:
+    description: "Message title"
+    required: true
+  body:
+    description: "Message body"
+    required: true
+  group:
+    description: "Message group"
+    required: false
+    default: "github"
+  icon:
+    description: "Message icon"
+    required: false
+    default: "https://github.githubassets.com/images/modules/open_graph/github-mark.png"
+  url:
+    description: "Message click url"
+    required: false
+    default: ${{github.repositoryUrl}}
+
+runs:
+  using: "composite"
+  steps:
+    - name: Send
+      shell: bash
+      run: |
+        function bark_push() {
+          push_url="https://api.day.app/push"
+          
+          body=""; title=""; group=""; icon=""; device_key=""; url=""
+
+          while getopts 'b:t:g:i:d:u:' opt; do
+            case "${opt}" in
+              b) body="$OPTARG" ;;
+              t) title="$OPTARG" ;;
+              g) group="$OPTARG" ;;
+              i) icon="$OPTARG" ;;
+              d) device_key="$OPTARG" ;;
+              u) url="$OPTARG" ;;
+              *) return 0 ;;
+            esac
+          done
+
+          json_data=$(jq -n \
+                          --arg body "$body" \
+                          --arg title "$title" \
+                          --arg group "$group" \
+                          --arg icon "$icon" \
+                          --arg device_key "$device_key" \
+                          --arg url "$url" \
+                          '{body: $body, title: $title, group: $group, icon: $icon, device_key: $device_key, url: $url}'
+                     )
+
+          device_keys=$(echo "$device_key" | tr -d '[:space:]' | sed 's/,$//gi')
+
+          for key in $(echo "$device_keys" | tr "," "\n"); do
+            payload=$(echo "$json_data" | jq --arg key "$key" '.device_key = $key' | tr -d '\n\r')
+            curl --silent \
+                 --request POST \
+                 --header 'Content-Type: application/json; charset=utf-8' \
+                 --data-raw "${payload}" \
+                 "${push_url}"
+          done
+        }
+        bark_push -b '${{inputs.body}}' -t '${{inputs.title}}' -d '${{secrets.BARK_DEVICE_KEY}}' -g '${{inputs.group}}' -i '${{inputs.icon}}' -u '${{inputs.url}}'
